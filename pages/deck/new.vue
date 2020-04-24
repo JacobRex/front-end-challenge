@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div v-if="error" :class="$s.Error">
+      {{ error }}
+    </div>
     <fe-grid :class="$s.Grid">
       <fe-grid-item
         v-for="(input, i) in chosenCards"
@@ -42,6 +45,7 @@ export default {
 
   data() {
     return {
+      error: null,
       chosenCards: ["", "", "", "", "", "", "", "", "", ""],
       cardOptions: [
         { value: "2H", label: "2 of Hearts" },
@@ -124,16 +128,27 @@ export default {
     async handleSubmit() {
       const filteredCards = this.chosenCards.filter(Boolean).join(",");
 
-      // Create deck and then proceed to page 2
-      await this.$store.dispatch("cards/createDeck", filteredCards);
-      await this.$store.dispatch("cards/drawCards", filteredCards.length);
-      this.$router.push({ path: `/deck/${this.deck.deck_id}` });
+      if (!filteredCards.length) {
+        this.error = "Please select a card.";
+      } else {
+        // Create deck and then proceed to page 2
+        await this.$store.dispatch("cards/createDeck", filteredCards);
+        await this.$store.dispatch("cards/drawCards", filteredCards.length);
+        this.$router.push({ path: `/deck/${this.deck.deck_id}` });
+      }
     },
   },
 };
 </script>
 
 <style module="$s">
+@import "Vars";
+
+.Error {
+  margin-bottom: var(--space-xl);
+  color: var(--color-brand);
+}
+
 .Grid {
   margin-bottom: var(--space-4x);
 }
