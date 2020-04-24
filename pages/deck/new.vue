@@ -11,13 +11,22 @@
         tablet-span="one-half"
         desktop-span="one-fifth"
       >
-        <label :class="$s.Label">Card {{ i + 1 }} </label>
+        <label :class="$s.Label">Card {{ i + 1 }}</label>
         <fe-select
           v-model="chosenCards[i]"
           :options="cardOptions"
-          :class="$s.Select"
           placeholder="Enter card"
         />
+      </fe-grid-item>
+    </fe-grid>
+    <fe-grid :class="$s.Grid">
+      <fe-grid-item
+        span="fullwidth"
+        tablet-span="one-half"
+        desktop-span="one-fifth"
+      >
+        <label :class="$s.Label">Rotation Card</label>
+        <fe-select v-model="chosenRotationCard" :options="cardOptions" />
       </fe-grid-item>
     </fe-grid>
 
@@ -48,6 +57,7 @@ export default {
       isLoading: false,
       error: null,
       chosenCards: ["", "", "", "", "", "", "", "", "", ""],
+      chosenRotationCard: "AS",
       cardOptions: [
         { value: "2H", label: "2 of Hearts" },
         { value: "2D", label: "2 of Diamonds" },
@@ -133,12 +143,34 @@ export default {
         this.error = "Please select a card.";
       } else {
         this.isLoading = true;
+
+        // Update the rotation card if needed
+        if (this.chosenRotationCard !== this.rotationCard) {
+          this.updateRotationCard();
+        }
+
         // Create deck and then proceed to page 2
         await this.$store.dispatch("cards/createDeck", filteredCards);
         await this.$store.dispatch("cards/drawCards", filteredCards.length);
         this.isLoading = false;
         this.$router.push({ path: `/deck/${this.deck.deck_id}` });
       }
+    },
+
+    async updateRotationCard() {
+      const str = this.chosenRotationCard;
+      await this.$store.commit(
+        "cards/updateRotationCard",
+        this.chosenRotationCard
+      );
+
+      const suit = str.charAt(str.length - 1);
+      const suitIdx = this.suitRank.indexOf(suit);
+      await this.$store.commit("cards/rotateSuits", suitIdx);
+
+      const card = str.substr(0, str.length - 1);
+      const cardIdx = this.cardRank.indexOf(card);
+      await this.$store.commit("cards/rotateCards", cardIdx);
     },
   },
 };
