@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div v-if="error" :class="$s.Error">
+    <div
+      v-if="error"
+      :class="$s.Error"
+    >
       {{ error }}
     </div>
     <fe-grid :class="$s.Grid">
@@ -26,11 +29,18 @@
         desktop-span="one-fifth"
       >
         <label :class="$s.Label">Rotation Card</label>
-        <fe-select v-model="chosenRotationCard" :options="cardOptions" />
+        <fe-select
+          v-model="chosenRotationCard"
+          :options="cardOptions"
+        />
       </fe-grid-item>
     </fe-grid>
 
-    <fe-button variant="primary" :loading="isLoading" @click="handleSubmit">
+    <fe-button
+      variant="primary"
+      :loading="isLoading"
+      @click="handleSubmit"
+    >
       Submit
     </fe-button>
   </div>

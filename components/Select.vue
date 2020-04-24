@@ -1,5 +1,8 @@
 <template>
-  <div :class="[$s.Wrapper, { [$s.focused]: isFocused }]" @click="focus()">
+  <div
+    :class="[$s.Wrapper, { [$s.focused]: isFocused }]"
+    @click="focus()"
+  >
     <select
       ref="select"
       v-model="selected"
@@ -17,8 +20,16 @@
       >
         {{ placeholder }}
       </option>
-      <slot v-for="(option, idx) in options" v-bind="option" :idx="idx">
-        <option :key="idx" :value="option.value" :disabled="option.disabled">
+      <slot
+        v-for="(option, idx) in options"
+        v-bind="option"
+        :idx="idx"
+      >
+        <option
+          :key="idx"
+          :value="option.value"
+          :disabled="option.disabled"
+        >
           {{ option.label }}
         </option>
       </slot>

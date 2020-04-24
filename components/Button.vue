@@ -12,7 +12,10 @@
     <div :class="[$s.ButtonContent, { [$s['is-loading']]: loading }]">
       <slot />
     </div>
-    <fe-loading-indicator v-if="loading" :class="$s.LoadingIndicator" />
+    <fe-loading-indicator
+      v-if="loading"
+      :class="$s.LoadingIndicator"
+    />
   </component>
 </template>
 
