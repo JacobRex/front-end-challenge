@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div v-if="error" :class="$s.Error">
+      {{ error }}
+    </div>
     <fe-grid :class="$s.Grid">
       <fe-grid-item
         v-for="(input, i) in chosenCards"
@@ -18,13 +21,15 @@
       </fe-grid-item>
     </fe-grid>
 
-    <fe-button variant="primary" to="/deck/123">
+    <fe-button variant="primary" :loading="isLoading" @click="handleSubmit">
       Submit
     </fe-button>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 import FeButton from "Components/Button.vue";
 import FeGrid from "Components/Grid.vue";
 import FeGridItem from "Components/GridItem.vue";
@@ -40,6 +45,8 @@ export default {
 
   data() {
     return {
+      isLoading: false,
+      error: null,
       chosenCards: ["", "", "", "", "", "", "", "", "", ""],
       cardOptions: [
         { value: "2H", label: "2 of Hearts" },
@@ -110,13 +117,41 @@ export default {
     };
   },
 
+  computed: {
+    ...mapState("cards", ["cardRank", "suitRank", "rotationCard", "deck"]),
+  },
+
   mounted() {
     this.$store.commit("page/setTitle", "Select Cards");
+  },
+
+  methods: {
+    async handleSubmit() {
+      const filteredCards = this.chosenCards.filter(Boolean).join(",");
+
+      if (!filteredCards.length) {
+        this.error = "Please select a card.";
+      } else {
+        this.isLoading = true;
+        // Create deck and then proceed to page 2
+        await this.$store.dispatch("cards/createDeck", filteredCards);
+        await this.$store.dispatch("cards/drawCards", filteredCards.length);
+        this.isLoading = false;
+        this.$router.push({ path: `/deck/${this.deck.deck_id}` });
+      }
+    },
   },
 };
 </script>
 
 <style module="$s">
+@import "Vars";
+
+.Error {
+  margin-bottom: var(--space-xl);
+  color: var(--color-brand);
+}
+
 .Grid {
   margin-bottom: var(--space-4x);
 }
