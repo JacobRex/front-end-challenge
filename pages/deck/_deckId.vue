@@ -21,6 +21,8 @@
       <strong>Rotation Card:</strong> {{ rotationCard }}
     </h2>
 
+    <h2 :class="$s.DataTitle"><strong>High Card:</strong> {{ highCard }}</h2>
+
     <fe-button to="/deck/new">
       Start Over
     </fe-button>
@@ -48,6 +50,12 @@ export default {
       return this.deck && this.deck.cards && this.deck.cards.length;
     },
 
+    highCard() {
+      return this.hasCards
+        ? `${this.sortedCards[0].value} of ${this.sortedCards[0].suit}`
+        : null;
+    },
+
     sortedCards() {
       if (!this.hasCards) {
         return;
@@ -65,9 +73,11 @@ export default {
       const suitOne = this.suitRank.indexOf(this.getSuitValue(a.code));
       const suitTwo = this.suitRank.indexOf(this.getSuitValue(b.code));
 
+      // Organize first by card
       if (cardOne > cardTwo) return 1;
       if (cardOne < cardTwo) return -1;
 
+      // If the cards are the same, check suit
       if (cardOne === cardTwo) {
         if (suitOne > suitTwo) return 1;
         if (suitOne < suitTwo) return -1;
@@ -79,6 +89,7 @@ export default {
     getCardVale(cardCode) {
       return cardCode.substr(0, cardCode.length - 1);
     },
+
     getSuitValue(cardCode) {
       return cardCode.charAt(cardCode.length - 1);
     },
