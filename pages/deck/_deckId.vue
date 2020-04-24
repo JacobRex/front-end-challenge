@@ -6,7 +6,7 @@
       </div>
       <fe-grid v-if="hasCards" :class="$s.Grid">
         <fe-grid-item
-          v-for="(card, i) in cards"
+          v-for="(card, i) in sortedCards"
           :key="i"
           span="fullwidth"
           tablet-span="one-half"
@@ -44,12 +44,43 @@ export default {
   computed: {
     ...mapState("cards", ["cardRank", "suitRank", "rotationCard", "deck"]),
 
-    cards() {
-      return this.deck && this.deck.cards;
+    hasCards() {
+      return this.deck && this.deck.cards && this.deck.cards.length;
     },
 
-    hasCards() {
-      return this.cards && this.cards.length;
+    sortedCards() {
+      if (!this.hasCards) {
+        return;
+      } else {
+        const cards = this.deck.cards.slice();
+        return cards.sort(this.compareCards);
+      }
+    },
+  },
+
+  methods: {
+    compareCards(a, b) {
+      const cardOne = this.cardRank.indexOf(this.getCardVale(a.code));
+      const cardTwo = this.cardRank.indexOf(this.getCardVale(b.code));
+      const suitOne = this.suitRank.indexOf(this.getSuitValue(a.code));
+      const suitTwo = this.suitRank.indexOf(this.getSuitValue(b.code));
+
+      if (cardOne > cardTwo) return 1;
+      if (cardOne < cardTwo) return -1;
+
+      if (cardOne === cardTwo) {
+        if (suitOne > suitTwo) return 1;
+        if (suitOne < suitTwo) return -1;
+      }
+
+      return 0;
+    },
+
+    getCardVale(cardCode) {
+      return cardCode.substr(0, cardCode.length - 1);
+    },
+    getSuitValue(cardCode) {
+      return cardCode.charAt(cardCode.length - 1);
     },
   },
 

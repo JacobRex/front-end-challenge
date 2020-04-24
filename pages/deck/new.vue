@@ -139,7 +139,7 @@ export default {
     async handleSubmit() {
       const filteredCards = this.chosenCards.filter(Boolean).join(",");
 
-      if (!filteredCards.length) {
+      if (!filteredCards) {
         this.error = "Please select a card.";
       } else {
         this.isLoading = true;
