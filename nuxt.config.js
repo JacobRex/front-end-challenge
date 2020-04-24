@@ -1,3 +1,5 @@
+const path = require('path');
+
 export default {
   mode: "spa",
   /*
@@ -44,6 +46,13 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {
+      // Setup Aliases
+      config.resolve.alias = {
+        Assets: path.resolve(__dirname, 'assets'),
+        Components: path.resolve(__dirname, 'components'),
+        Pages: path.resolve(__dirname, 'pages'),
+      };
+
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
