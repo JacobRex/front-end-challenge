@@ -17,6 +17,10 @@
       </fe-grid>
     </div>
 
+    <h2 :class="$s.DataTitle">
+      <strong>Rotation Card:</strong> {{ rotationCard }}
+    </h2>
+
     <fe-button to="/deck/new">
       Start Over
     </fe-button>
