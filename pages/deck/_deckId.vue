@@ -1,10 +1,16 @@
 <template>
   <div>
     <div :class="$s.Cards">
-      <div v-if="!hasCards" :class="$s.Error">
+      <div
+        v-if="!hasCards"
+        :class="$s.Error"
+      >
         No cards selected.
       </div>
-      <fe-grid v-if="hasCards" :class="$s.Grid">
+      <fe-grid
+        v-if="hasCards"
+        :class="$s.Grid"
+      >
         <fe-grid-item
           v-for="(card, i) in sortedCards"
           :key="i"
@@ -12,7 +18,10 @@
           tablet-span="one-half"
           desktop-span="one-fifth"
         >
-          <img :class="$s.Card" :src="card.image" />
+          <img
+            :class="$s.Card"
+            :src="card.image"
+          >
         </fe-grid-item>
       </fe-grid>
     </div>
@@ -21,7 +30,9 @@
       <strong>Rotation Card:</strong> {{ rotationCard }}
     </h2>
 
-    <h2 :class="$s.DataTitle"><strong>High Card:</strong> {{ highCard }}</h2>
+    <h2 :class="$s.DataTitle">
+      <strong>High Card:</strong> {{ highCard }}
+    </h2>
 
     <fe-button to="/deck/new">
       Start Over
@@ -66,6 +77,10 @@ export default {
     },
   },
 
+  mounted() {
+    this.$store.commit("page/setTitle", "Ordered Cards");
+  },
+
   methods: {
     compareCards(a, b) {
       const cardOne = this.cardRank.indexOf(this.getCardVale(a.code));
@@ -93,10 +108,6 @@ export default {
     getSuitValue(cardCode) {
       return cardCode.charAt(cardCode.length - 1);
     },
-  },
-
-  mounted() {
-    this.$store.commit("page/setTitle", "Ordered Cards");
   },
 };
 </script>
