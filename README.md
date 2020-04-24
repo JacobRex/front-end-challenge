@@ -1,12 +1,14 @@
-# front-end-challenge
+# Frontend Challenge
+For this demo project, I construct a single page app that takes up to 10 playing cards chosen by the user and organizes them by rank and tells you the high card. The user can also define a high card, which rotates the card order and will rank cards accordingly.
 
-> Demonstrate my knowledge of Vue.js, Git, Design Patterns, Testing, HTML5, CSS3, and Problem Solving.
+Under the hood I'm use Nuxt, Vue, PostCSS, CSSModules and Jest, as well as [this nifty card api](http://deckofcardsapi.com/).
+
+![Animated Gif](/static/demo.gif)
 
 ## Build Setup
-
 ```bash
-# ensure you're on the right node version
-nvm use
+# Use the right node version (v12.16.1)
+$ nvm use
 
 # install dependencies
 $ npm install
@@ -23,3 +25,21 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+## Running Tests
+
+```bash
+# run automated tests
+$ npm run test
+```
+
+## Linting
+We're using basic eslint rules for vue.
+
+```bash
+# display linting errors
+$ npm run lint
+
+# autofix errors
+$ npm run lintfix
+```
