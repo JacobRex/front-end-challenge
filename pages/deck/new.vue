@@ -21,7 +21,7 @@
       </fe-grid-item>
     </fe-grid>
 
-    <fe-button variant="primary" @click="handleSubmit">
+    <fe-button variant="primary" :loading="isLoading" @click="handleSubmit">
       Submit
     </fe-button>
   </div>
@@ -45,6 +45,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       error: null,
       chosenCards: ["", "", "", "", "", "", "", "", "", ""],
       cardOptions: [
@@ -131,9 +132,11 @@ export default {
       if (!filteredCards.length) {
         this.error = "Please select a card.";
       } else {
+        this.isLoading = true;
         // Create deck and then proceed to page 2
         await this.$store.dispatch("cards/createDeck", filteredCards);
         await this.$store.dispatch("cards/drawCards", filteredCards.length);
+        this.isLoading = false;
         this.$router.push({ path: `/deck/${this.deck.deck_id}` });
       }
     },
