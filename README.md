@@ -26,13 +26,6 @@ $ npm run generate
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
 
-## Running Tests
-
-```bash
-# run automated tests
-$ npm run test
-```
-
 ## Linting
 This app uses basic eslint rules for vue.
 
