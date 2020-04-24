@@ -1,7 +1,10 @@
 <template>
   <div>
     <div :class="$s.Cards">
-      <fe-grid :class="$s.Grid">
+      <div v-if="!hasCards" :class="$s.Error">
+        No cards selected.
+      </div>
+      <fe-grid v-if="hasCards" :class="$s.Grid">
         <fe-grid-item
           v-for="(card, i) in cards"
           :key="i"
@@ -38,7 +41,11 @@ export default {
     ...mapState("cards", ["cardRank", "suitRank", "rotationCard", "deck"]),
 
     cards() {
-      return this.deck.cards;
+      return this.deck && this.deck.cards;
+    },
+
+    hasCards() {
+      return this.cards && this.cards.length;
     },
   },
 
@@ -49,6 +56,8 @@ export default {
 </script>
 
 <style module="$s">
+@import "Vars";
+
 .Cards {
   padding: var(--space-xl);
   margin-bottom: var(--space-4x);
@@ -58,5 +67,11 @@ export default {
 
 .Card {
   width: 100%;
+}
+
+.Error {
+  color: var(--color-gray-300);
+  font-weight: bold;
+  text-align: center;
 }
 </style>
