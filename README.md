@@ -34,7 +34,7 @@ $ npm run test
 ```
 
 ## Linting
-We're using basic eslint rules for vue.
+This app uses basic eslint rules for vue.
 
 ```bash
 # display linting errors
