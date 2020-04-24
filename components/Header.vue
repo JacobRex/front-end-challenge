@@ -9,10 +9,10 @@
 </template>
 
 <script>
-import FeContainer from 'Components/Container.vue';
+import FeContainer from "Components/Container.vue";
 
 export default {
-  name: 'FeHeader',
+  name: "FeHeader",
 
   components: {
     FeContainer,
@@ -33,7 +33,11 @@ export default {
 .Header {
   padding: var(--space-xl) 0;
   margin-bottom: var(--space-4x);
-  background-image: linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.1)),linear-gradient(135deg,#002b66,#46004d 76%);
+  background-image: linear-gradient(
+    135deg,
+    var(--color-blue-700),
+    var(--color-purple-500) 76%
+  );
 }
 
 .Title {
