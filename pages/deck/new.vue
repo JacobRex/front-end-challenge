@@ -18,13 +18,15 @@
       </fe-grid-item>
     </fe-grid>
 
-    <fe-button variant="primary" to="/deck/123">
+    <fe-button variant="primary" @click="handleSubmit">
       Submit
     </fe-button>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 import FeButton from "Components/Button.vue";
 import FeGrid from "Components/Grid.vue";
 import FeGridItem from "Components/GridItem.vue";
@@ -110,8 +112,23 @@ export default {
     };
   },
 
+  computed: {
+    ...mapState("cards", ["cardRank", "suitRank", "rotationCard", "deck"]),
+  },
+
   mounted() {
     this.$store.commit("page/setTitle", "Select Cards");
+  },
+
+  methods: {
+    async handleSubmit() {
+      const filteredCards = this.chosenCards.filter(Boolean).join(",");
+
+      // Create deck and then proceed to page 2
+      await this.$store.dispatch("cards/createDeck", filteredCards);
+      await this.$store.dispatch("cards/drawCards", filteredCards.length);
+      this.$router.push({ path: `/deck/${this.deck.deck_id}` });
+    },
   },
 };
 </script>

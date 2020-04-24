@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 import FeButton from "Components/Button.vue";
 import FeGrid from "Components/Grid.vue";
 import FeGridItem from "Components/GridItem.vue";
@@ -32,16 +34,12 @@ export default {
     FeGridItem,
   },
 
-  data() {
-    return {
-      cards: [
-        { image: "https://deckofcardsapi.com/static/img/AS.png" },
-        { image: "https://deckofcardsapi.com/static/img/QH.png" },
-        { image: "https://deckofcardsapi.com/static/img/KC.png" },
-        { image: "https://deckofcardsapi.com/static/img/JD.png" },
-        { image: "https://deckofcardsapi.com/static/img/7S.png" },
-      ],
-    };
+  computed: {
+    ...mapState("cards", ["cardRank", "suitRank", "rotationCard", "deck"]),
+
+    cards() {
+      return this.deck.cards;
+    },
   },
 
   mounted() {
