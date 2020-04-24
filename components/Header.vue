@@ -32,7 +32,6 @@ export default {
 
 .Header {
   padding: var(--space-xl) 0;
-  margin-bottom: var(--space-4x);
   background-image: linear-gradient(
     135deg,
     var(--color-blue-700),
@@ -41,6 +40,7 @@ export default {
 }
 
 .Title {
+  text-align: center;
   color: var(--color-white);
   font-size: var(--font-size-display);
 }

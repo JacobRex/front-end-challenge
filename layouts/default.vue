@@ -1,55 +1,53 @@
 <template>
   <div>
-    <nuxt />
+    <fe-header :title="pageTitle" />
+    <fe-container :class="$s.Container">
+      <nuxt />
+    </fe-container>
   </div>
 </template>
 
+<script>
+import FeHeader from "Components/Header.vue";
+import FeContainer from "Components/Container.vue";
+
+export default {
+  components: {
+    FeHeader,
+    FeContainer,
+  },
+  computed: {
+    pageTitle() {
+      return this.$store.state.page.title;
+    },
+  },
+};
+</script>
+
 <style>
-html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
+@import "Vars";
 
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
+html,
+body {
   margin: 0;
+  padding: 0;
 }
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
+body {
+  color: var(--text-color);
+  line-height: var(--line-height);
+  font-family: var(--font-family);
+  font-size: var(--font-size-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
+</style>
 
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
+<style module="$s">
+@import "Vars";
 
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
+.Container {
+  padding: var(--space-3x) 0;
 }
 </style>
