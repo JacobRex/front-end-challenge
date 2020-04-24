@@ -48,6 +48,6 @@ body {
 @import "Vars";
 
 .Container {
-  padding: var(--space-3x) 0;
+  padding: var(--space-4x) 0;
 }
 </style>
