@@ -1,0 +1,103 @@
+:root {
+  /* --------------------------------------------
+  VARIABLE NAMING GUIDELINES
+  --[element]-[css-property]-[state]
+  --border-color;
+  --button-border-color;
+  --button-border-color-hover;
+  --------------------------------------------- */
+
+
+  /* Spacing
+  -------------------------------------------- */
+  --space-xs: 4px;
+  --space-sm: calc(var(--space-xs) * 2);  /* 8px */
+  --space-md: calc(var(--space-xs) * 4);  /* 16px */
+  --space-lg: calc(var(--space-xs) * 6);  /* 24px */
+  --space-xl: calc(var(--space-xs) * 8);  /* 32px */
+  --space-2x: calc(var(--space-xs) * 10); /* 48px */
+  --space-3x: calc(var(--space-xs) * 16); /* 64px */
+  --space-4x: calc(var(--space-xs) * 24); /* 96px */
+  --space-5x: calc(var(--space-xs) * 40); /* 160px */
+
+
+  /* Colors
+  -------------------------------------------- */
+  --color-pink-500: #FF3C6A;
+
+  --color-purple-500: #46004D;
+
+  --color-blue-700: #002B66;
+  --color-blue-500: #27387E;
+
+  --color-gray-900: #0F121A;
+  --color-gray-600: #696C74;
+  --color-gray-300: #9B9FA8;
+  --color-gray-100: #F2F4FA;
+
+  --color-white: #FFF;
+  --color-black: #000;
+
+
+  /* Semantic
+  -------------------------------------------- */
+  --color-brand: var(--color-pink-500);
+
+  --text-color: var(--color-gray-900);
+
+
+  /* Containers
+  -------------------------------------------- */
+  --max-width-sm: 480px;
+  --max-width-md: 900px;
+  --max-width-lg: 1200px;
+
+
+  /* Typography
+  -------------------------------------------- */
+  --font-size: 16px;
+  --font-size-display: 50px;
+  --font-size-h1: 36px;
+  --font-size-h2: 21px;
+  --font-size-h3: 18px;
+  --font-size-body: var(--font-size);
+  --font-size-body-small: 14px;
+
+  --font-family: Helvetica, Arial, sans-serif;
+
+  --line-height-sm: 1em;
+  --line-height-md: 1.5em;
+  --line-height-lg: 2em;
+  --line-height: var(--line-height-md);
+
+
+  /* Borders
+  -------------------------------------------- */
+  --border-color: var(--color-gray-300);
+  --border: 1px solid var(--border-color);
+  --border-color-hover: var(--color-gray-600);
+  --border-hover: 1px solid var(--border-color-hover);
+  --border-radius: 6px;
+
+
+  /* Box Shadow
+  -------------------------------------------- */
+  --box-shadow-border: inset 0px 0px 0px 1px var(--border-color);
+  --box-shadow-border-hover: inset 0px 0px 0px 1px var(--border-color-hover);
+  --box-shadow-border-focus: inset 0px 0px 0px 2px var(--color-pink-500);
+
+
+  /* Transitions
+  -------------------------------------------- */
+  --transition-time: 0.15s;
+  --transition-easing: cubic-bezier(.25,.46,.45,.94);
+  --transition: var(--transition-time) var(--transition-easing);
+}
+
+/* Media Queries
+-------------------------------------------- */
+@custom-media --mobile-up (min-width: 600px);
+@custom-media --tablet-down (max-width: 768px);
+@custom-media --tablet-up (min-width: 768px);
+@custom-media --lg-tablet-up (min-width: 992px);
+@custom-media --desktop-up (min-width: 1200px);

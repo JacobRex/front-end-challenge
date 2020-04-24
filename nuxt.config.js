@@ -68,7 +68,21 @@ export default {
       // Install them before as dependencies with npm or yarn
       plugins: {
         // Disable a plugin by passing false as value
-        'postcss-import': {},
+        'postcss-import': {
+          resolve(id) {
+            const aliases = {
+              'Vars': path.resolve(__dirname, 'assets/styles/vars.css'),
+            };
+
+            for(let alias in aliases) {
+              if(id === alias) {
+                id = aliases[alias];
+              }
+            }
+
+            return id;
+          }
+        },
         'postcss-nesting': {},
         'postcss-custom-media': {},
         'postcss-preset-env': {
