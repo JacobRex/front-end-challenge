@@ -1,0 +1,26 @@
+{
+  "name": "front-end-challenge",
+  "version": "1.0.0",
+  "description": "Demonstrate my knowledge of Vue.js, Git, Design Patterns, Testing, HTML5, CSS3, and Problem Solving.",
+  "author": "Jacob Rex",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "test": "jest"
+  },
+  "dependencies": {
+    "nuxt": "^2.0.0"
+  },
+  "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.27",
+    "babel-jest": "^24.1.0",
+    "jest": "^24.1.0",
+    "vue-jest": "^4.0.0-0"
+  },
+  "engines" : {
+    "node" : ">=12.16.1"
+  }
+}
