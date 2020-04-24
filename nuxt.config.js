@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require("path");
 
 export default {
   mode: "spa",
@@ -37,7 +37,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: ["nuxt-svg-loader"],
   /*
    ** Build configuration
    */
@@ -48,9 +48,9 @@ export default {
     extend(config, ctx) {
       // Setup Aliases
       config.resolve.alias = {
-        Assets: path.resolve(__dirname, 'assets'),
-        Components: path.resolve(__dirname, 'components'),
-        Pages: path.resolve(__dirname, 'pages'),
+        Assets: path.resolve(__dirname, "assets"),
+        Components: path.resolve(__dirname, "components"),
+        Pages: path.resolve(__dirname, "pages"),
       };
 
       // Run ESLint on save
@@ -68,20 +68,34 @@ export default {
       // Install them before as dependencies with npm or yarn
       plugins: {
         // Disable a plugin by passing false as value
-        'postcss-import': {},
-        'postcss-nesting': {},
-        'postcss-custom-media': {},
-        'postcss-preset-env': {
-          browsers: 'last 2 versions',
+        "postcss-import": {
+          resolve(id) {
+            const aliases = {
+              Vars: path.resolve(__dirname, "assets/styles/vars.css"),
+            };
+
+            for (let alias in aliases) {
+              if (id === alias) {
+                id = aliases[alias];
+              }
+            }
+
+            return id;
+          },
         },
-        'cssnano': {},
+        "postcss-nesting": {},
+        "postcss-custom-media": {},
+        "postcss-preset-env": {
+          browsers: "last 2 versions",
+        },
+        cssnano: {},
       },
       preset: {
         // Change the postcss-preset-env settings
         autoprefixer: {
-          grid: true
-        }
-      }
-    }
+          grid: true,
+        },
+      },
+    },
   },
 };
