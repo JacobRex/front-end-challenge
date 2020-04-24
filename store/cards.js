@@ -4,6 +4,21 @@ import axios from "axios";
 // ----------------------------------------------
 const URL = "https://deckofcardsapi.com/api/deck";
 
+// Functions
+// ----------------------------------------------
+function rotateArray(array, idx) {
+  let rotatedArray = array;
+
+  // Only rotate if the rotation index isn't the first entry and is contained in the array
+  if (idx > 0 && idx <= array.length) {
+    const front = array.slice(idx, array.length);
+    const back = array.slice(0, idx);
+    rotatedArray = front.concat(back);
+  }
+
+  return rotatedArray;
+}
+
 // State
 // ----------------------------------------------
 export const state = () => ({
@@ -22,6 +37,14 @@ export const mutations = {
 
   updateRotationCard(state, card) {
     state.rotationCard = card;
+  },
+
+  rotateCards(state, idx) {
+    state.cardRank = rotateArray(state.cardRank, idx);
+  },
+
+  rotateSuits(state, idx) {
+    state.suitRank = rotateArray(state.suitRank, idx);
   },
 };
 
